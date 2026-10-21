@@ -1,0 +1,11 @@
+.sdk/
+**/bin/
+**/obj/
+data/
+.local/
+.env
+.env.*
+*.user
+.DS_Store
+**/__pycache__/
+.idea/

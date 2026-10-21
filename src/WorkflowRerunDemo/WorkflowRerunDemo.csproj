@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**/obj/**;**/bin/**</DefaultItemExcludes>
+    <DaprSdkRoot Condition="'$(DaprSdkRoot)' == ''">$(MSBuildThisFileDirectory)../../.sdk/dotnet-sdk</DaprSdkRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(DaprSdkRoot)/src/Dapr.Workflow/Dapr.Workflow.csproj" />
+    <ProjectReference Include="$(DaprSdkRoot)/src/Dapr.Workflow.Abstractions/Dapr.Workflow.Abstractions.csproj" />
+  </ItemGroup>
+  <Target Name="RequireSdkFork" BeforeTargets="PrepareForBuild" Condition="!Exists('$(DaprSdkRoot)/src/Dapr.Workflow/Dapr.Workflow.csproj')">
+    <Error Text="Run ./scripts/bootstrap-sdk.sh to check out the required SDK fork." />
+  </Target>
+</Project>
