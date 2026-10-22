@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 root="$(cd "$(dirname "$0")/.." && pwd)"
+"$root/scripts/bootstrap-sdk.sh"
 mode="${DEMO_BUILD_MODE:-auto}"
 case "$mode" in
   auto)
@@ -28,7 +29,6 @@ if [[ "$mode" == container ]]; then
     mcr.microsoft.com/dotnet/sdk:10.0 \
     bash -c 'git config --global --add safe.directory /work/.sdk/dotnet-sdk; exec ./scripts/build.sh'
 fi
-"$root/scripts/bootstrap-sdk.sh"
 build_args=()
 if [[ "${DEMO_CONTAINER_BUILD:-false}" == true ]]; then
   # Apply to every project reference, including the SDK fork.
